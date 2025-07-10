@@ -1,0 +1,6 @@
+com\org\cobro\services\MySOAPServiceClient.class
+com\org\cobro\controller\HelloController.class
+com\org\cobro\controller\GreetingController.class
+com\org\cobro\model\Car.class
+com\org\cobro\CobroApplication.class
+com\org\cobro\ServletInitializer.class
