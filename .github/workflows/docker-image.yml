@@ -31,8 +31,8 @@ jobs:
           iq-server-url: http://52.234.210.127:8070/
           username: ${{ secrets.IQ_USER }}
           password: ${{ secrets.IQ_PASSWORD }}
-          application-id: struts2-rce-demo__ajoanes98
-          scan-targets: struts2-rest-showcase.war container:struts-container:1.0.0
+          application-id: CobroJava
+          scan-targets: CobroJava.jar container:CobroJava:1.0.0
           # upload-sarif-file: true
         
       # Fetch the SBOM file associated with the evaluation
@@ -43,7 +43,7 @@ jobs:
           iq-server-url: http://52.234.210.127:8070/
           username: ${{ secrets.IQ_USER }}
           password: ${{ secrets.IQ_PASSWORD }}
-          application-id: struts2-rce-demo__ajoanes98
+          application-id: CobroJava
           scan-id: ${{ steps.evaluate.outputs.scan-id }}
           sbom-standard: cyclonedx
           sbom-version: 1.5
