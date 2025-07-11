@@ -41,7 +41,7 @@ jobs:
       #- name: Build Docker image
       #  run: docker build -t struts-container:1.0.0 .
       - name: Build the JAR
-        run: mvn clean package && ls -la target&& ls -la target
+        run: mvn clean install --settings .m2/settings.xml && ls -la target&& ls -la target
         
       # Perform an evaluation 
       - name: Run evaluate action 
