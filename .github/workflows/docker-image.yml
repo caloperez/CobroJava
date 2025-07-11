@@ -34,6 +34,7 @@ jobs:
   sonatype-cli:
     runs-on: ubuntu-latest
     environment: Cobro
+    needs: build
     steps:
       #Check out your code
       - name: Checkout
