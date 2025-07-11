@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.IQ_USER }}
           password: ${{ secrets.IQ_PASSWORD }}
           application-id: CobroJava
-          scan-targets: CobroJava.jar container:CobroJava:1.0.0
+          scan-targets: CobroJava.jar
           # upload-sarif-file: true
         
       # Fetch the SBOM file associated with the evaluation
