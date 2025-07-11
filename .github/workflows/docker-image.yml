@@ -41,7 +41,7 @@ jobs:
       #- name: Build Docker image
       #  run: docker build -t struts-container:1.0.0 .
       - name: Build the JAR
-        run: mvn clean package
+        run: mvn clean package && ls -la target&& ls -la target
         
       # Perform an evaluation 
       - name: Run evaluate action 
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.IQ_USER }}
           password: ${{ secrets.IQ_PASSWORD }}
           application-id: CobroJava
-          scan-targets: CobroJava-2.7.0.jar
+          scan-targets: CobroJava-5.4-SNAPSHOT.jar
           # upload-sarif-file: true
         
       # Fetch the SBOM file associated with the evaluation
