@@ -7,24 +7,29 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
+  
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Set up JDK 11
-  #     uses: actions/setup-java@v4
-  #     with:
-  #       java-version: '11'
-  #       distribution: 'temurin'
-  #       server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-  #       settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-  #   - name: Build with Maven
-  #     run: mvn -B package --file pom.xml
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - name: Build with Maven
+      run: mvn clean install --settings .m2/settings.xml
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cobrojava-artifact
+        path: target/*.jar
 
   sonatype-cli:
     runs-on: ubuntu-latest
@@ -40,8 +45,8 @@ jobs:
 
       #- name: Build Docker image
       #  run: docker build -t struts-container:1.0.0 .
-      - name: Build the JAR
-        run: mvn clean package && ls -la target&& ls -la target
+      #- name: Build the JAR
+      #  run: mvn clean package && ls -la target&& ls -la target
         
       # Perform an evaluation 
       - name: Run evaluate action 
@@ -56,28 +61,28 @@ jobs:
           # upload-sarif-file: true
         
       # Fetch the SBOM file associated with the evaluation
-      - name: Fetch SBOM
-        uses: sonatype/actions/fetch-sbom@v1
-        if: ( success() || failure() ) && steps.evaluate.outputs.scan-id 
-        with:
-          iq-server-url: http://52.234.210.127:8070/
-          username: ${{ secrets.IQ_USER }}
-          password: ${{ secrets.IQ_PASSWORD }}
-          application-id: CobroJava
-          scan-id: ${{ steps.evaluate.outputs.scan-id }}
-          sbom-standard: cyclonedx
-          sbom-version: 1.5
-          sbom-format: json
-          artifact-name: struts-sbom
+      # - name: Fetch SBOM
+      #   uses: sonatype/actions/fetch-sbom@v1
+      #   if: ( success() || failure() ) && steps.evaluate.outputs.scan-id 
+      #   with:
+      #     iq-server-url: http://52.234.210.127:8070/
+      #     username: ${{ secrets.IQ_USER }}
+      #     password: ${{ secrets.IQ_PASSWORD }}
+      #     application-id: CobroJava
+      #     scan-id: ${{ steps.evaluate.outputs.scan-id }}
+      #     sbom-standard: cyclonedx
+      #     sbom-version: 1.5
+      #     sbom-format: json
+      #     artifact-name: struts-sbom
 
-      - name: POST SBOM to SBOM Manager
-        if: always()
-        run: |
-          curl -i -u ${{ secrets.IQ_USER }}:${{ secrets.IQ_PASSWORD }} \
-            -H "X-CSRF-TOKEN: c9c664e5-697e-4415-bd40-34832c50d25d" \
-            -F file="struts-sbom" \
-            -F applicationId=aa94847f8b40474a044028f8039ec53 \
-            -F applicationVersion="1.0.0" \
-            -X POST "http://52.234.210.127:8070/platform/api/v2/sbom/import"
+      # - name: POST SBOM to SBOM Manager
+      #   if: always()
+      #   run: |
+      #     curl -i -u ${{ secrets.IQ_USER }}:${{ secrets.IQ_PASSWORD }} \
+      #       -H "X-CSRF-TOKEN: c9c664e5-697e-4415-bd40-34832c50d25d" \
+      #       -F file="struts-sbom" \
+      #       -F applicationId=aa94847f8b40474a044028f8039ec53 \
+      #       -F applicationVersion="1.0.0" \
+      #       -X POST "http://52.234.210.127:8070/platform/api/v2/sbom/import"
   
  
