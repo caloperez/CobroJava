@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 env:   # 🌍 Variables globales para todos los jobs
-  Nexus_REPO_URL: ${{ vars.NEXUS_REPO_URL }}
-  Nexus_REPO_USER: ${{ secrets.NEXUS_REPO_USER }}
-  Nexus_REPO_PASS: ${{ secrets.NEXUS_REPO_PASS }}
-  Nexus_IQ_USERNAME: ${{ secrets.IQ_USERNAME }}
-  Nexus_IQ_PASSWORD: ${{ secrets.NEXUS_IQ_PASSWORD }}
+  Nexus_REPO_URL: ${{ github.action.NEXUS_REPO_URL }}
+  Nexus_REPO_USER: ${{ github.action.NEXUS_REPO_USER }}
+  Nexus_REPO_PASS: ${{ github.action.NEXUS_REPO_PASS }}
+  Nexus_IQ_USERNAME: ${{ github.action.IQ_USERNAME }}
+  Nexus_IQ_PASSWORD: ${{ github.action.NEXUS_IQ_PASSWORD }}
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
 
 jobs:
