@@ -57,8 +57,8 @@ jobs:
         uses: sonatype/actions/evaluate@v1
         with:
           iq-server-url: http://52.234.210.127:8070/
-          username: ${{ env.Nexus_IQ_USERNAME }}
-          password: ${{ env.Nexus_IQ_PASSWORD }}
+          username: ${{ secrets.Nexus_IQ_USERNAME }}
+          password: ${{ secrets.Nexus_IQ_PASSWORD }}
           application-id: CobroJava
           scan-targets: target/*.jar
           # upload-sarif-file: true
