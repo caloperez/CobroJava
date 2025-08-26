@@ -10,19 +10,7 @@
 	</parent>
 	<groupId>com.org</groupId>
 	<artifactId>CobroJava</artifactId>
-	<version>5.4-SNAPSHOT</version>
-	<distributionManagement>
-	  <repository> 
-	    <id>nexus</id>
-	    <name>maven-releases</name>
-	    <url>http://localhost:8081/repository/maven-releases/</url>
-	  </repository>
-	  <snapshotRepository>
-	    <id>nexus</id>
-	    <name>maven-snapshots</name>
-	    <url>http://localhost:8081/repository/maven-snapshots/</url>
-	  </snapshotRepository>
-	</distributionManagement>
+	<version>5.4-SNAPSHOT</version> 
 	<name>CobroJava</name>
 	<description>Project for payment</description>
 	<properties>
@@ -119,5 +107,28 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<repositories>
+		<repository>
+			<id>nexus-repo</id>
+			<url>http://52.234.210.127:8081/repository/maven-public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>Central</name>
+			<url>${env.Nexus_REPO_URL}releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshots</name>
+			<url>${env.Nexus_REPO_URL}snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
