@@ -9,9 +9,7 @@ on:
 env:
   Nexus_REPO_URL: ${{ vars.NEXUS_REPO_URL }}
   Nexus_REPO_USER: ${{ secrets.NEXUS_REPO_USER }}
-  Nexus_REPO_PASS: ${{ secrets.NEXUS_REPO_PASS }}
-  Nexus_IQ_USERNAME: ${{ secrets.IQ_USERNAME }}
-  Nexus_IQ_PASSWORD: ${{ secrets.NEXUS_IQ_PASSWORD }}
+  Nexus_REPO_PASS: ${{ secrets.NEXUS_REPO_PASS }} 
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
 
 jobs:
@@ -42,6 +40,7 @@ jobs:
   sonatype-cli:
     runs-on: ubuntu-latest 
     needs: build
+    environment: Dev
     steps:
       #Check out your code
       - name: Checkout
